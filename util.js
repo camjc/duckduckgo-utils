@@ -640,4 +640,15 @@
         return url && url.replace(/^https/, "http");
     };
 
+    /**
+     * Return the extension for a given
+     * filename.
+     *
+     * @param {string} filename
+     * @return {string} extension
+     */
+    DDG.getFileExtension = function(filename) {
+        return filename && filename.substr((~-filename.lastIndexOf(".") >>> 0) + 2);
+    };
+
 })(this);
