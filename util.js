@@ -73,20 +73,28 @@
     };
 
     /**
-     * Takes a jQuery event and returns the x/y coordinates
-     * for a touch event.
+     * Takes a jQuery event and returns an array of x/y coordinates
+     * for any detected touch events.
      *
      * @param {jQuery.Event} e
-     * @return {object}
+     * @return {array}
      */
     DDG.eventToCoordinates = function(e) {
-        var oe = e.originalEvent,
-            input = (oe.touches && oe.touches.length) ? oe.touches[0] : e;
+        var oe = e.originalEvent;
 
-        return {
-            x: input.clientX,
-            y: input.clientY
-        };
+        if (oe.touches && oe.touches.length) {
+            return oe.touches.map(function(t) {
+                return {
+                    x: t.clientX,
+                    y: t.clientY
+                };
+            });
+        } else {
+            return [{
+                x: e.clientX,
+                y: e.clientY
+            }];
+        }
     };
 
     /**
